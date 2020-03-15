@@ -1,0 +1,3 @@
+### main app ###
+# /.env.local pour un fichier à la racine
+/crepes_bretonnes/settings.py
