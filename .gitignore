@@ -1,3 +1,13 @@
-### main app ###
-# /.env.local pour un fichier à la racine
+### Django ###
+db.sqlite3
+db.sqlite3-journal
 /crepes_bretonnes/settings.py
+*.log
+*.pot
+*.pyc
+media
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
