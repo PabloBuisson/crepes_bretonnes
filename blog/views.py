@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404 # ++
 from blog.models import Article
 
 def accueil(request):
@@ -9,4 +9,5 @@ def accueil(request):
 
 def lire(request, id):
     """ Afficher un article complet """
-    pass # Le code de cette fonction est donné un peu plus loin.
+    article = get_object_or_404(Article, id=id)
+    return render(request, 'blog/lire.html', {'article':article})
