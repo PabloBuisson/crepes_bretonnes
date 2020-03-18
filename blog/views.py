@@ -7,7 +7,7 @@ def accueil(request):
     articles = Article.objects.all() # Nous sélectionnons tous nos articles
     return render(request, 'blog/accueil.html', {'derniers_articles': articles})
 
-def lire(request, id):
+def lire(request, id, slug):
     """ Afficher un article complet """
-    article = get_object_or_404(Article, id=id)
+    article = get_object_or_404(Article, id=id, slug=slug)
     return render(request, 'blog/lire.html', {'article':article})
