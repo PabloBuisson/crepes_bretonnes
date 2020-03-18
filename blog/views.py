@@ -1,10 +1,12 @@
-from datetime import datetime
+from django.http import Http404
 from django.shortcuts import render
+from blog.models import Article
 
-def date_actuelle(request):
-    return render(request, 'blog/date.html', {'date': datetime.now()})
+def accueil(request):
+    """ Afficher tous les articles de notre blog """
+    articles = Article.objects.all() # Nous sélectionnons tous nos articles
+    return render(request, 'blog/accueil.html', {'derniers_articles': articles})
 
-def addition(request, nombre1, nombre2):    
-    total = nombre1 + nombre2
-    # Retourne nombre1, nombre2 et la somme des deux au tpl
-    return render(request, 'blog/addition.html', locals())
+def lire(request, id):
+    """ Afficher un article complet """
+    pass # Le code de cette fonction est donné un peu plus loin.
