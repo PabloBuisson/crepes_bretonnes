@@ -11,13 +11,14 @@ class ArticleAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
     ordering = ('date', )
     search_fields = ('titre', 'contenu')
+    prepopulated_fields = {'slug': ('titre',)} ## ++
 
     # Configuration du formulaire d'édition
     fieldsets = (
         # Fieldset 1 : meta-info (titre, auteur…)
         ('Général', {
             'classes': ['collapse', ], # rend l'ensemble masqué (à dérouler)
-            'fields': ('titre', 'auteur', 'categorie')
+            'fields': ('titre', 'slug', 'auteur', 'categorie') # ++ ajout de slug
         }),
         # Fieldset 2 : contenu de l'article
         ('Contenu de l\'article', {
