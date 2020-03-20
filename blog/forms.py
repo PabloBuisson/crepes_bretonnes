@@ -11,10 +11,18 @@ class ContactForm(forms.Form):
                                 required=False)  # case à cocher
     # help_text permet d’ajouter un petit texte d’aide concernant le champ
 
-    def clean_message(self):
-        message = self.cleaned_data['message']
-        if "pizza" in message:
-            raise forms.ValidationError(
-                "On ne veut pas entendre parler de pizza !")
-            # il est important d’utiliser l’exception forms.ValidationError
-        return message  # Ne pas oublier de renvoyer le contenu du champ traité
+    def clean(self):
+        cleaned_data = super(ContactForm, self).clean() # appelle la méthode clean héritée de Form
+        # Appeler la méthode mère permet au framework de vérifier tous les champs comme d’habitude 
+        # pour s’assurer que ceux-ci sont corrects
+        # La méthode mère clean va également renvoyer un dictionnaire avec toutes les données valides
+        sujet = cleaned_data.get('sujet') # renvoie la valeur d’une clé si elle existe, et renvoie None sinon
+        message = cleaned_data.get('message')
+
+        if sujet and message:  # Est-ce que sujet et message sont valides ?
+            if "pizza" in sujet and "pizza" in message:
+                raise forms.ValidationError(
+                    "Vous parlez de pizzas dans le sujet ET le message ? Non mais ho !"
+                )
+
+        return cleaned_data  # N'oublions pas de renvoyer les données si tout est OK
