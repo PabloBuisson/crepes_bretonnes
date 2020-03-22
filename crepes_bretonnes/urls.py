@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include # include pour lier des urls à un path
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     # tous les urls de l'application blog commenceront par blog/
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# tous les fichiers consignés dans le répertoire MEDIA_ROOT
+# (dans lequel Django place les fichiers enregistrés)
+# seront accessibles depuis l’adresse, comme indiquée depuis MEDIA_URL

@@ -6,4 +6,5 @@ urlpatterns = [
     path('article/<int:id>-<slug:slug>', views.lire, name='lire'),
     path('contact/', views.contact, name='contact'),
     path('nouveau-contact/', views.nouveau_contact, name='nouveau-contact'),
+    path('voir_contacts/', views.voir_contacts, name='liste-contacts'),
 ]

@@ -53,3 +53,11 @@ def nouveau_contact(request):
         'form': form,
         'sauvegarde': sauvegarde
     })
+
+
+def voir_contacts(request):
+    return render(
+        request,
+        'blog/voir_contacts.html',
+        {'contacts': Contact.objects.all()}
+    )
