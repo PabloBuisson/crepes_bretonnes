@@ -21,8 +21,14 @@ class ContactForm(forms.Form):
 
         if sujet and message:  # Est-ce que sujet et message sont valides ?
             if "pizza" in sujet and "pizza" in message:
-                raise forms.ValidationError(
-                    "Vous parlez de pizzas dans le sujet ET le message ? Non mais ho !"
+                # si les deux champs contiennent le mot « pizza »,
+                # nous ne renvoyons plus une exception, mais nous ajoutons une erreur
+                # l’appel à cette méthode a pour effet de supprimer le message des données "valide" 
+                # et donc d’empêcher toute nouvelle validation de ce champ
+                self.add_error("message", 
+                    "Vous parlez déjà de pizzas dans le sujet, "
+                    "n'en parlez plus dans le message !"
                 )
-
+                # on peut également spécifier comme deuxième paramètre de la méthode
+                # une instance de forms.ValidationError, comme utilisé précédemment
         return cleaned_data  # N'oublions pas de renvoyer les données si tout est OK
