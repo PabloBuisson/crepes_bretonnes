@@ -1,7 +1,7 @@
-from .forms import ContactForm
+from .forms import ContactForm, NouveauContactForm # ++
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404 # ++
-from .models import Article
+from django.shortcuts import render, get_object_or_404
+from .models import Article, Contact # ++
 
 def accueil(request):
     """ Afficher tous les articles de notre blog """
@@ -34,3 +34,22 @@ def contact(request):
 
     # Quoiqu'il arrive, on affiche la page du formulaire.
     return render(request, 'blog/contact.html', locals())
+
+
+def nouveau_contact(request):
+    sauvegarde = False
+    form = NouveauContactForm(request.POST or None, request.FILES)
+    # tous tous les fichiers sélectionnés sont envoyés dans
+    # le dictionnaire request.FILES
+    if form.is_valid():
+        contact = Contact()
+        contact.nom = form.cleaned_data["nom"]
+        contact.adresse = form.cleaned_data["adresse"]
+        contact.photo = form.cleaned_data["photo"]
+        contact.save()
+        sauvegarde = True
+
+    return render(request, 'blog/nouveau-contact.html', {
+        'form': form,
+        'sauvegarde': sauvegarde
+    })

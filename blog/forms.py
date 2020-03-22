@@ -32,3 +32,9 @@ class ContactForm(forms.Form):
                 # on peut également spécifier comme deuxième paramètre de la méthode
                 # une instance de forms.ValidationError, comme utilisé précédemment
         return cleaned_data  # N'oublions pas de renvoyer les données si tout est OK
+
+
+class NouveauContactForm(forms.Form):
+    nom = forms.CharField()
+    adresse = forms.CharField(widget=forms.Textarea)
+    photo = forms.ImageField()
