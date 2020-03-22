@@ -62,7 +62,3 @@ def voir_contacts(request):
         'blog/voir_contacts.html',
         {'contacts': Contact.objects.all()}
     )
-
-
-class FAQView(TemplateView):
-   template_name = "blog/faq.html"  # chemin vers le template à afficher
