@@ -1,7 +1,8 @@
-from .forms import ContactForm, NouveauContactForm # ++
+from .forms import ContactForm, NouveauContactForm
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-from .models import Article, Contact # ++
+from .models import Article, Contact
+from django.views.generic import TemplateView # ++
 
 def accueil(request):
     """ Afficher tous les articles de notre blog """
@@ -61,3 +62,7 @@ def voir_contacts(request):
         'blog/voir_contacts.html',
         {'contacts': Contact.objects.all()}
     )
+
+
+class FAQView(TemplateView):
+   template_name = "blog/faq.html"  # chemin vers le template à afficher
