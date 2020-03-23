@@ -1,13 +1,13 @@
 from .forms import ContactForm, NouveauContactForm
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-from .models import Article, Contact
-from django.views.generic import TemplateView # ++
+from .models import Article, Contact, Categorie
+from django.views.generic import TemplateView, ListView # ++
 
-def accueil(request):
-    """ Afficher tous les articles de notre blog """
-    articles = Article.objects.all() # Nous sélectionnons tous nos articles
-    return render(request, 'blog/accueil.html', {'derniers_articles': articles})
+# def accueil(request):
+#    """ Afficher tous les articles de notre blog """
+#    articles = Article.objects.all() # Nous sélectionnons tous nos articles
+#    return render(request, 'blog/accueil.html', {'derniers_articles': articles})
 
 def lire(request, id, slug):
     """ Afficher un article complet """
@@ -62,3 +62,22 @@ def voir_contacts(request):
         'blog/voir_contacts.html',
         {'contacts': Contact.objects.all()}
     )
+
+
+class ListeArticles(ListView):
+    model = Article
+    context_object_name = "derniers_articles"
+    template_name = "blog/accueil.html"
+    paginate_by = 5 # afficher que 5 articles par page
+    # queryset = Article.objects.filter(categorie__id=1)
+    # filtre les articles par catégorie, automatiquement
+    # remplace l'attribut queryset
+    def get_queryset(self):
+        return Article.objects.filter(categorie__id=self.kwargs['id'])
+
+    def get_context_data(self, **kwargs):
+        # Nous récupérons le contexte depuis la super-classe
+        context = super(ListeArticles, self).get_context_data(**kwargs)
+        # Nous ajoutons la liste des catégories, sans filtre particulier
+        context['categories'] = Categorie.objects.all()
+        return context
