@@ -2,7 +2,7 @@ from .forms import ContactForm, NouveauContactForm
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Contact, Categorie
-from django.views.generic import TemplateView, ListView # ++
+from django.views.generic import TemplateView, ListView, DetailView # ++
 
 # def accueil(request):
 #    """ Afficher tous les articles de notre blog """
@@ -81,3 +81,9 @@ class ListeArticles(ListView):
         # Nous ajoutons la liste des catégories, sans filtre particulier
         context['categories'] = Categorie.objects.all()
         return context
+
+
+class LireArticle(DetailView):
+    context_object_name = "article"
+    model = Article
+    template_name = "blog/lire.html"
