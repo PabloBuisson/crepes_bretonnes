@@ -1,3 +1,5 @@
+from django.views.generic import CreateView # ++
+from django.urls import reverse_lazy # ++
 from django.shortcuts import redirect, get_object_or_404, render
 from mini_url.models import MiniURL
 from mini_url.forms import MiniURLForm
@@ -9,18 +11,18 @@ def liste(request):
 
     return render(request, 'mini_url/liste.html', locals())
 
+# fonction remplacée par URLCreate()
+# def nouveau(request):
+#     """ Ajout d'une redirection """
+#     if request.method == "POST":
+#         form = MiniURLForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect(liste)
+#     else:
+#         form = MiniURLForm()
 
-def nouveau(request):
-    """ Ajout d'une redirection """
-    if request.method == "POST":
-        form = MiniURLForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(liste)
-    else:
-        form = MiniURLForm()
-
-    return render(request, 'mini_url/nouveau.html', {'form': form})
+#     return render(request, 'mini_url/nouveau.html', {'form': form})
 
 
 def redirection(request, code):
@@ -30,3 +32,10 @@ def redirection(request, code):
     mini.save()
 
     return redirect(mini.url, permanent=True)
+
+
+class URLCreate(CreateView):
+    model = MiniURL
+    template_name = 'mini_url/nouveau.html'
+    form_class = MiniURLForm
+    success_url = reverse_lazy(liste)
