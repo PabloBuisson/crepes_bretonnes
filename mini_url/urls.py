@@ -9,4 +9,6 @@ urlpatterns = [
     re_path(r'^(?P<code>\w{6})/$', views.redirection, name='url_redirection'),
     re_path(r'^edition/(?P<code>\w{6})$',
             views.URLUpdate.as_view(), name='url_update'),
+    re_path(r'^supprimer/(?P<code>\w{6})$',
+            views.URLDelete.as_view(), name='url_delete')
 ]

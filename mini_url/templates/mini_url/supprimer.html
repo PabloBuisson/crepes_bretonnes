@@ -1,0 +1,10 @@
+<h1>Êtes-vous sûr de vouloir supprimer cette URL ?</h1>
+
+<p>{{ mini_url.code }} -&gt; {{ mini_url.url }} (créée le {{ mini_url.date|date:"DATE_FORMAT" }})</p>
+
+<form method="post" action="">
+    {% csrf_token %}
+    <!-- le csrf_token pour la sécurité -->
+    <input type="submit" value="Oui, je veux le supprimer" /> - 
+    <a href="{% url "url_liste" %}">Revenir à la liste</a>
+</form>

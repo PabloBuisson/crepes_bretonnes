@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, UpdateView # ++
+from django.views.generic import CreateView, UpdateView, DeleteView  # ++
 from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404, render
 from mini_url.models import MiniURL
@@ -52,3 +52,14 @@ class URLUpdate(UpdateView):
         # le dictionnaire self.kwargs contient les arguments nommés dans l’URL
         return get_object_or_404(MiniURL, code=code)
         # renvoie une page d’erreur si jamais le code demandé n’existe pas
+
+
+class URLDelete(DeleteView):
+    model = MiniURL
+    context_object_name = "mini_url"
+    template_name = 'mini_url/supprimer.html'
+    success_url = reverse_lazy(liste)
+
+    def get_object(self, queryset=None):
+        code = self.kwargs.get('code', None)
+        return get_object_or_404(MiniURL, code=code)
