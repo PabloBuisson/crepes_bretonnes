@@ -7,4 +7,6 @@ urlpatterns = [
     path('nouveau', views.URLCreate.as_view(), name='url_nouveau'),
     # (?P<code>\w{6}) capturera 6 caractères alphanumériques.
     re_path(r'^(?P<code>\w{6})/$', views.redirection, name='url_redirection'),
+    re_path(r'^edition/(?P<code>\w{6})$',
+            views.URLUpdate.as_view(), name='url_update'),
 ]

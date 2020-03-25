@@ -1,5 +1,5 @@
-from django.views.generic import CreateView # ++
-from django.urls import reverse_lazy # ++
+from django.views.generic import CreateView, UpdateView # ++
+from django.urls import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404, render
 from mini_url.models import MiniURL
 from mini_url.forms import MiniURLForm
@@ -39,3 +39,16 @@ class URLCreate(CreateView):
     template_name = 'mini_url/nouveau.html'
     form_class = MiniURLForm
     success_url = reverse_lazy(liste)
+
+
+class URLUpdate(UpdateView):
+    model = MiniURL
+    template_name = 'mini_url/nouveau.html'
+    form_class = MiniURLForm
+    success_url = reverse_lazy(liste)
+
+    def get_object(self, queryset=None):
+        code = self.kwargs.get('code', None)
+        # le dictionnaire self.kwargs contient les arguments nommés dans l’URL
+        return get_object_or_404(MiniURL, code=code)
+        # renvoie une page d’erreur si jamais le code demandé n’existe pas
