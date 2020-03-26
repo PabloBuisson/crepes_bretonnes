@@ -16,3 +16,6 @@
     <li><a href="{% url "blog_categorie" categorie.id %}">{{ categorie.nom }}</a></li>
     {% endfor %}
 </ul>
+
+{% load blog_extras %}
+Un jour, une certaine personne m'a dit : {{ "Bonjour le monde !"|citation }}

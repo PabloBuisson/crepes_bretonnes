@@ -71,11 +71,13 @@ class ListeArticles(ListView):
     context_object_name = "derniers_articles"
     template_name = "blog/accueil.html"
     paginate_by = 5 # afficher que 5 articles par page
-    # queryset = Article.objects.filter(categorie__id=1)
-    # filtre les articles par catégorie, automatiquement
+    queryset = Article.objects.filter(categorie__id=1)
+    # filtre les articles de catégorie 1
+    # ci-dessous, filtre les articles par catégorie, automatiquement
     # remplace l'attribut queryset
-    def get_queryset(self):
-        return Article.objects.filter(categorie__id=self.kwargs['id'])
+    # def get_queryset(self):
+    #   return Article.objects.filter(categorie__id=self.kwargs['id'])
+    # (!) demande un path=('<int:id>/', ect.) pour marcher
 
     def get_context_data(self, **kwargs):
         # Nous récupérons le contexte depuis la super-classe
