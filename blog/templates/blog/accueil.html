@@ -19,3 +19,9 @@
 
 {% load blog_extras %}
 Un jour, une certaine personne m'a dit : {{ "Bonjour le monde !"|citation }}
+<p>
+    {{ "Bonjour"|smart_truncate:14 }}<br />
+    {{ "Bonjour tout le monde"|smart_truncate:15 }}<br />
+    {{ "Bonjour tout le monde, c'est bientôt Noël"|smart_truncate:18 }}<br />
+    {{ "To be or not to be, that's the question"|smart_truncate }}<br />
+</p>
