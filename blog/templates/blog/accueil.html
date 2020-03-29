@@ -1,5 +1,7 @@
 <h1>Bienvenue sur le blog des crêpes bretonnes !</h1>
 
+<p>Bonjour à tous, nous sommes le {{ date_actuelle }} et il fait beau en Bretagne !</p>
+
 {% for article in derniers_articles %}
 <div class="article">
     <h3>{{ article.titre }}</h3>
@@ -24,4 +26,7 @@ Un jour, une certaine personne m'a dit : {{ "Bonjour le monde !"|citation }}
     {{ "Bonjour tout le monde"|smart_truncate:15 }}<br />
     {{ "Bonjour tout le monde, c'est bientôt Noël"|smart_truncate:18 }}<br />
     {{ "To be or not to be, that's the question"|smart_truncate }}<br />
+</p>
+<p>
+    {% random 0 42 %}
 </p>
