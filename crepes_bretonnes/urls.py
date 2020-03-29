@@ -24,6 +24,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     # tous les urls de l'application blog commenceront par blog/
     re_path(r'^m/', include('mini_url.urls')),
+    path('stats/', include('stats.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
