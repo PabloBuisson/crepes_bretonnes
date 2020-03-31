@@ -1,7 +1,10 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from secret.forms import ConnexionForm
 
+def accueil(request):
+    return render(request, 'secret/accueil.html', locals())
 
 def connexion(request):
     error = False
@@ -21,3 +24,10 @@ def connexion(request):
         form = ConnexionForm()
 
     return render(request, 'secret/connexion.html', locals())
+
+
+def deconnexion(request):
+    logout(request)
+    return redirect(reverse(connexion))
+    # reverse crée une directive semblable à la balise de gabarit url
+    # {% url 'some-url-name' arg1=v1 arg2=v2 %}
