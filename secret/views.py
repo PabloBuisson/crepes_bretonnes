@@ -2,8 +2,11 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from secret.forms import ConnexionForm
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/secret/connexion')
 def accueil(request):
+    user = request.user.username
     return render(request, 'secret/accueil.html', locals())
 
 def connexion(request):
@@ -17,7 +20,8 @@ def connexion(request):
             # Nous vérifions si les données sont correctes
             user = authenticate(username=username, password=password)
             if user:  # Si l'objet renvoyé n'est pas None
-                login(request, user)  # nous connectons l'utilisateur
+                login(request, user) # nous connectons l'utilisateur
+                return redirect(reverse(accueil))
             else:  # sinon une erreur sera affichée
                 error = True
     else:
