@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.flatpages',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
@@ -120,7 +121,7 @@ LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'UTC'
 
-USE_I18N = False # permet d’activer l’internationalisation
+USE_I18N = True # permet d’activer l’internationalisation
 
 USE_L10N = True
 
