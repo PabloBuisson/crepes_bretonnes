@@ -18,6 +18,7 @@ from django.urls import path, re_path, include # include pour lier des urls à u
 from django.conf.urls.static import static
 from django.conf import settings
 from django.conf.urls import url
+from django.contrib.flatpages import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,3 +33,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # tous les fichiers consignés dans le répertoire MEDIA_ROOT
 # (dans lequel Django place les fichiers enregistrés)
 # seront accessibles depuis l’adresse, comme indiquée depuis MEDIA_URL
+
+urlpatterns += [
+    path('contact/', views.flatpage, {'url': '/contact/'}, name='contact'),
+]
