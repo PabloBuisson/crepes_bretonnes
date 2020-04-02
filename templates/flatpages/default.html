@@ -8,6 +8,15 @@
     <body>
         <h1>{{ flatpage.title }}</h1>
         {{ flatpage.content }}
+
+        <p>Nos pages d'information :</p>
+        {% load flatpages %}
+        {% get_flatpages as flatpages %}
+        <ul>
+            {% for page in flatpages %}
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
     </body>
 
 </html>
