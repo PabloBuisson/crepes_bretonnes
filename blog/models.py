@@ -16,7 +16,7 @@ class Article(models.Model):
     def est_recent(self):
         """ Retourne True si l'article a été publié dans
             les 30 derniers jours """
-        return (timezone.now() - self.date).days < 30
+        return (timezone.now() - self.date).days < 30 and self.date < timezone.now()
 
     def __str__(self):
         return self.titre
