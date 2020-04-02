@@ -31,3 +31,30 @@ class MiniURLTests(TestCase):
         # (celui que nous avons passé à notre template et qui est accessible depuis reponse.context) 
         # est égal au QuerySet indiqué en deuxième paramètre ?
         self.assertQuerysetEqual(reponse.context['minis'], [repr(mini)])
+
+    def test_nouveau_redirection(self):
+        """ Vérifie la redirection d'un ajout d'URL """
+        data = {
+            'url': 'http://www.djangoproject.com',
+            'pseudo': 'Jean Dupont',
+        }
+
+        reponse = self.client.post(reverse('url_nouveau'), data)
+        self.assertEqual(reponse.status_code, 302)
+        # vérifie que la réponse est bien une redirection vers l’URL passée en paramètre
+        self.assertRedirects(reponse, reverse('url_liste'))
+
+
+    def test_nouveau_ajout(self):
+        """
+        Vérifie si après la redirection l'URL ajoutée est bien dans la liste
+        """
+        data = {
+            'url': 'http://www.crepes-bretonnes.com',
+            'pseudo': 'Amateur de crêpes',
+        }
+
+        # on force Django à suivre la redirection directement en indiquant follow=True
+        reponse = self.client.post(reverse('url_nouveau'), data, follow=True)
+        self.assertEqual(reponse.status_code, 200)
+        self.assertContains(reponse, data['url'])
