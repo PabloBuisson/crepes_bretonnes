@@ -87,10 +87,22 @@ WSGI_APPLICATION = 'crepes_bretonnes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # on utilise l'adaptateur postgresql
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'crepes2',  # le nom de notre base de donnees creee precedemment
+        'USER': 'postgres',  # nom d'utilisateur, par défaut postgres
+        'PASSWORD': 'your password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
